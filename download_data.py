@@ -9,10 +9,7 @@ from urllib.request import Request, urlopen
 from zipfile import ZipFile
 
 DATA_DIR = Path("data/oulad")
-DATA_URL = (
-    "https://archive.ics.uci.edu/static/public/349/"
-    "open+university+learning+analytics+dataset.zip"
-)
+DATA_URL = "https://archive.ics.uci.edu/static/public/349/open+university+learning+analytics+dataset.zip"
 SHA256 = "f2ed1902616c1fe8d2824d872c0b7d2d72be435bf0124d077044fe4be2c6d3e4"
 FILES = ("courses.csv", "studentInfo.csv", "studentRegistration.csv", "studentVle.csv")
 
