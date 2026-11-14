@@ -1,0 +1,50 @@
+[project]
+name = "learner-early-warning"
+version = "1.0.0"
+description = "Prioritise mentor check-ins using the first 14 days of recorded learning activity."
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "fastapi==0.141.1",
+    "joblib==1.5.3",
+    "numpy==2.3.5",
+    "pandas==2.2.3",
+    "pydantic==2.13.4",
+    "scikit-learn==1.8.0",
+    "scipy==1.17.0",
+    "threadpoolctl==3.6.0",
+    "uvicorn==0.52.1",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.7.0",
+    "ruff==0.17.5",
+]
+notebook = [
+    "ipykernel==6.30.1",
+    "jupyterlab==4.4.10",
+    "matplotlib==3.10.8",
+    "nbclient==0.10.2",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+extend-exclude = ["notebook.ipynb"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # import sorting
+    "B",   # bugbear: likely bugs
+    "UP",  # modern Python syntax
+    "SIM", # simplifications
+    "C4",  # comprehensions
+    "PTH", # pathlib over os.path
+]
+ignore = ["E501"]  # line length is the formatter's job

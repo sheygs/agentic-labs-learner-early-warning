@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint and format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.5"
+          enable-cache: true
+      - name: Install lint tools and check the lockfile is current
+        run: uv sync --locked --only-group dev
+      - name: Lint
+        run: uv run ruff check --output-format=github .
+      - name: Check formatting
+        run: uv run ruff format --check --diff .
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.5"
+          enable-cache: true
+      - name: Install dependencies
+        run: uv sync --locked
+      - name: Run unit tests
+        run: uv run python -m unittest discover -s tests -v
+
+  docker:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t learner-early-warning:ci .
+      - name: Start the container
+        run: docker run -d --name api -p 127.0.0.1:8000:8000 learner-early-warning:ci
+      - name: Smoke test the API
+        run: |
+          for attempt in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8000/health && break
+            sleep 1
+          done
+          python3 scripts/smoke_test.py --url http://127.0.0.1:8000
+      - name: Show container logs
+        if: failure()
+        run: docker logs api
