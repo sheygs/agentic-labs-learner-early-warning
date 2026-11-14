@@ -1,0 +1,10 @@
+{
+  "learners": [
+    {"learner_id": "learner-a", "daily_clicks": [5, 1, 9, 0, 6, 8, 2, 3, 1, 7, 8, 2, 8, 9]},
+    {"learner_id": "learner-b", "daily_clicks": [7, 13, 4, 11, 3, 9, 8, 3, 0, 2, 0, 0, 0, 0]},
+    {"learner_id": "learner-c", "daily_clicks": [12, 6, 1, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"learner_id": "learner-d", "daily_clicks": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]},
+    {"learner_id": "learner-e", "daily_clicks": [0, 1, 0, 4, 0, 0, 0, 0, 0, 3, 8, 12, 18, 11]},
+    {"learner_id": "learner-f", "daily_clicks": [22, 0, 19, 3, 1, 0, 2, 9, 0, 0, 1, 2, 0, 0]}
+  ]
+}

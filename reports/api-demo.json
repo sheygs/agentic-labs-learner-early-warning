@@ -1,0 +1,37 @@
+{
+  "model_name": "Logistic regression",
+  "model_version": "day14-v1",
+  "horizon_days": 30,
+  "ranked_learners": [
+    {
+      "learner_id": "learner-d",
+      "rank": 1,
+      "risk_score": 0.10999027294580442
+    },
+    {
+      "learner_id": "learner-c",
+      "rank": 2,
+      "risk_score": 0.056586486367734085
+    },
+    {
+      "learner_id": "learner-b",
+      "rank": 3,
+      "risk_score": 0.03387193086833866
+    },
+    {
+      "learner_id": "learner-f",
+      "rank": 4,
+      "risk_score": 0.024193860476622423
+    },
+    {
+      "learner_id": "learner-e",
+      "rank": 5,
+      "risk_score": 0.017832972262564258
+    },
+    {
+      "learner_id": "learner-a",
+      "rank": 6,
+      "risk_score": 0.01488192369991925
+    }
+  ]
+}

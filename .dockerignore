@@ -1,0 +1,6 @@
+**
+!requirements.txt
+!data.py
+!predict.py
+!artifacts/
+!artifacts/model.joblib
