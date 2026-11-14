@@ -23,7 +23,8 @@ def main():
     parser.add_argument("--save", type=Path, help="Save the verified API response.")
     args = parser.parse_args()
     url = args.url.rstrip("/")
-    sample = json.loads(Path("examples/cohort.json").read_text(encoding="utf-8"))
+    sample_path = Path(__file__).resolve().parents[1] / "examples" / "cohort.json"
+    sample = json.loads(sample_path.read_text(encoding="utf-8"))
 
     with urlopen(f"{url}/health", timeout=10) as response:
         health = json.load(response)
