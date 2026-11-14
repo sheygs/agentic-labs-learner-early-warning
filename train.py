@@ -87,11 +87,12 @@ def main():
         "held_out_metrics": results.replace({np.nan: None}).to_dict(orient="index"),
     }
 
-    export_model(args.artifact, model, metadata)
+    # Serialize and write the report first so a failure cannot leave a new
+    # serving artifact paired with stale metrics.
+    report_text = json.dumps(report, indent=2, allow_nan=False) + "\n"
     args.report.parent.mkdir(parents=True, exist_ok=True)
-    args.report.write_text(
-        json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8"
-    )
+    args.report.write_text(report_text, encoding="utf-8")
+    export_model(args.artifact, model, metadata)
 
     print(f"Selected on {PRESENTATIONS[2]}: {winner} {metadata['parameters']}")
     print(
