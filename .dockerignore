@@ -1,5 +1,6 @@
 **
-!requirements.txt
+!pyproject.toml
+!uv.lock
 !data.py
 !predict.py
 !artifacts/
