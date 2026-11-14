@@ -54,6 +54,8 @@ def expected_hits_at_k(y_true, scores, k=OUTREACH_CAPACITY):
     """Average the number of hits across all orderings of a tied boundary score."""
     targets = np.asarray(y_true)
     scores = np.asarray(scores)
+    if not 0 < k <= len(scores):
+        raise ValueError("k must be between 1 and the number of scored learners.")
     cutoff = np.sort(scores)[-k]
     higher = scores > cutoff
     tied = scores == cutoff
@@ -108,6 +110,11 @@ def candidates():
     }
 
 
+def selection_key(trial):
+    """Higher validation average precision wins; a lower Brier score breaks ties."""
+    return trial["average_precision"], -trial["brier_score"]
+
+
 def tune_models(split):
     """Select hyperparameters using only training outcomes and the validation intake."""
     training_features = split.train[FEATURES]
@@ -127,7 +134,7 @@ def tune_models(split):
             metrics = ranking_metrics(validation_target, scores, probabilities=True)
             trial = {"model": name, "parameters": params, **metrics}
             trials.append(trial)
-            key = (trial["average_precision"], -trial["brier_score"])
+            key = selection_key(trial)
             if best_trial is None or key > best_trial:
                 best_trial = key
                 best_models[name] = (estimator, trial)
@@ -146,11 +153,7 @@ def evaluate_models(split, best_models):
     holdout_features = split.test[FEATURES]
     holdout_target = split.test[TARGET]
     selected_name = max(
-        best_models,
-        key=lambda name: (
-            best_models[name][1]["average_precision"],
-            -best_models[name][1]["brier_score"],
-        ),
+        best_models, key=lambda name: selection_key(best_models[name][1])
     )
 
     holdout_scores = baseline_scores(holdout_features)
