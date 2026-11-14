@@ -1,0 +1,177 @@
+{
+  "model": {
+    "model_name": "Logistic regression",
+    "parameters": {
+      "logisticregression__C": 30.0
+    },
+    "model_version": "day14-v1",
+    "course": "BBB",
+    "observation_days": 14,
+    "prediction_horizon_days": 30,
+    "feature_names": [
+      "active_days_week_1",
+      "active_days_week_2",
+      "clicks_week_1",
+      "clicks_week_2",
+      "days_since_last_activity"
+    ],
+    "scikit_learn_version": "1.8.0"
+  },
+  "split": {
+    "training_intakes": [
+      "2013B",
+      "2013J"
+    ],
+    "validation_intake": "2014B",
+    "held_out_intake": "2014J",
+    "test_enrolments": 1726,
+    "test_withdrawals": 30
+  },
+  "selection_metric": "validation average precision",
+  "outreach_capacity": 10,
+  "cohorts": {
+    "2013B": {
+      "raw_registrations": 1767,
+      "eligible": 1606,
+      "missing_registration_date": 1,
+      "registered_after_cutoff": 2,
+      "already_withdrawn": 158,
+      "missing_withdrawal_date": 0,
+      "withdrawn_in_window": 105,
+      "zero_activity": 233,
+      "withdrawal_rate": 0.06537982565379825,
+      "repeated_learner_exclusions": 0,
+      "modeled_enrolments": 1606,
+      "modeled_withdrawals": 105,
+      "modeled_withdrawal_rate": 0.06537982565379825
+    },
+    "2013J": {
+      "raw_registrations": 2237,
+      "eligible": 1852,
+      "missing_registration_date": 2,
+      "registered_after_cutoff": 3,
+      "already_withdrawn": 380,
+      "missing_withdrawal_date": 0,
+      "withdrawn_in_window": 50,
+      "zero_activity": 307,
+      "withdrawal_rate": 0.026997840172786176,
+      "repeated_learner_exclusions": 31,
+      "modeled_enrolments": 1821,
+      "modeled_withdrawals": 49,
+      "modeled_withdrawal_rate": 0.026908292147171883
+    },
+    "2014B": {
+      "raw_registrations": 1613,
+      "eligible": 1287,
+      "missing_registration_date": 5,
+      "registered_after_cutoff": 6,
+      "already_withdrawn": 314,
+      "missing_withdrawal_date": 1,
+      "withdrawn_in_window": 25,
+      "zero_activity": 152,
+      "withdrawal_rate": 0.019425019425019424,
+      "repeated_learner_exclusions": 57,
+      "modeled_enrolments": 1230,
+      "modeled_withdrawals": 24,
+      "modeled_withdrawal_rate": 0.01951219512195122
+    },
+    "2014J": {
+      "raw_registrations": 2292,
+      "eligible": 1779,
+      "missing_registration_date": 1,
+      "registered_after_cutoff": 19,
+      "already_withdrawn": 481,
+      "missing_withdrawal_date": 12,
+      "withdrawn_in_window": 31,
+      "zero_activity": 190,
+      "withdrawal_rate": 0.017425519955030916,
+      "repeated_learner_exclusions": 53,
+      "modeled_enrolments": 1726,
+      "modeled_withdrawals": 30,
+      "modeled_withdrawal_rate": 0.01738122827346466
+    }
+  },
+  "validation_best_per_model": {
+    "Logistic regression": {
+      "model": "Logistic regression",
+      "parameters": {
+        "logisticregression__C": 30.0
+      },
+      "average_precision": 0.040568010565118585,
+      "roc_auc": 0.6449177722498618,
+      "expected_hits_at_10": 0.6106870229007634,
+      "precision_at_10": 0.06106870229007634,
+      "recall_at_10": 0.025445292620865142,
+      "brier_score": 0.019933733834215168
+    },
+    "Random forest": {
+      "model": "Random forest",
+      "parameters": {
+        "max_depth": 3,
+        "min_samples_leaf": 25
+      },
+      "average_precision": 0.03675742490547375,
+      "roc_auc": 0.605289524599226,
+      "expected_hits_at_10": 0.6106870229007634,
+      "precision_at_10": 0.06106870229007634,
+      "recall_at_10": 0.025445292620865142,
+      "brier_score": 0.020009415140138865
+    },
+    "Gradient boosting": {
+      "model": "Gradient boosting",
+      "parameters": {
+        "l2_regularization": 3.0,
+        "max_iter": 60,
+        "max_leaf_nodes": 7
+      },
+      "average_precision": 0.03646958719543458,
+      "roc_auc": 0.6016445550027639,
+      "expected_hits_at_10": 0.549618320610687,
+      "precision_at_10": 0.05496183206106871,
+      "recall_at_10": 0.022900763358778626,
+      "brier_score": 0.020282484895470288
+    }
+  },
+  "held_out_metrics": {
+    "No activity in week two": {
+      "average_precision": 0.024358518050697706,
+      "roc_auc": 0.609807389937107,
+      "expected_hits_at_10": 0.3233256351039261,
+      "precision_at_10": 0.03233256351039261,
+      "recall_at_10": 0.01077752117013087,
+      "brier_score": null
+    },
+    "Days since last activity": {
+      "average_precision": 0.03716645078131145,
+      "roc_auc": 0.6808372641509434,
+      "expected_hits_at_10": 0.5524861878453038,
+      "precision_at_10": 0.05524861878453038,
+      "recall_at_10": 0.018416206261510127,
+      "brier_score": null
+    },
+    "Logistic regression": {
+      "average_precision": 0.042596830165048644,
+      "roc_auc": 0.7105247641509433,
+      "expected_hits_at_10": 0.5524861878453038,
+      "precision_at_10": 0.05524861878453038,
+      "recall_at_10": 0.018416206261510127,
+      "brier_score": 0.017451640925793262
+    },
+    "Random forest": {
+      "average_precision": 0.044875802694140404,
+      "roc_auc": 0.7566823899371069,
+      "expected_hits_at_10": 0.5524861878453038,
+      "precision_at_10": 0.05524861878453038,
+      "recall_at_10": 0.018416206261510127,
+      "brier_score": 0.017541514728920866
+    },
+    "Gradient boosting": {
+      "average_precision": 0.03824060234492439,
+      "roc_auc": 0.6645833333333334,
+      "expected_hits_at_10": 0.49723756906077343,
+      "precision_at_10": 0.049723756906077346,
+      "recall_at_10": 0.016574585635359115,
+      "brier_score": 0.017686159446239434
+    }
+  }
+}
