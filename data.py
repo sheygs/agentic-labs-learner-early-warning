@@ -25,11 +25,17 @@ TARGET = "withdrew_in_30_days"
 
 def engagement_features(daily_clicks):
     """Use the same daily count transformation for training and API requests."""
-    clicks = np.asarray(daily_clicks, dtype=np.int64)
-    if clicks.ndim != 2 or clicks.shape[1] != OBSERVATION_DAYS or (clicks < 0).any():
+    clicks = np.asarray(daily_clicks)
+    if (
+        clicks.dtype.kind not in "iu"
+        or clicks.ndim != 2
+        or clicks.shape[1] != OBSERVATION_DAYS
+        or (clicks < 0).any()
+    ):
         raise ValueError(
-            f"Provide {OBSERVATION_DAYS} non-negative daily counts per learner."
+            f"Provide {OBSERVATION_DAYS} non-negative integer daily counts per learner."
         )
+    clicks = clicks.astype(np.int64)
 
     active = clicks > 0
     latest_active_day = np.where(active, np.arange(1, OBSERVATION_DAYS + 1), 0).max(
